@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/app_nav_graph"
+    app:startDestination="@id/fileSelection">
+
+    <fragment
+        android:id="@+id/fileSelection"
+        android:name="com.osenov.english.ui.select.FileSelectionFragment"
+        android:label="file_selection_fragment"
+        tools:layout="@layout/file_selection_fragment" >
+        <action
+            android:id="@+id/action_fileSelection_to_playerFragment"
+            app:destination="@id/playerFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/playerFragment"
+        android:name="com.osenov.english.ui.player.PlayerFragment"
+        android:label="fragment_player"
+        tools:layout="@layout/fragment_player" />
+</navigation>
