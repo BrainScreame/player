@@ -1,5 +1,6 @@
 package com.osenov.english.ui.select.list
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
@@ -7,7 +8,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.osenov.english.databinding.ItemVideoBinding
-import com.osenov.english.Video
+import com.osenov.english.data.entities.Video
 
 class FileAdapter(private val videoClickListener : VideoClickListener) :
     PagingDataAdapter<Video, VideoViewHolder>(FileDiffItemCallback) {
@@ -31,6 +32,7 @@ class FileAdapter(private val videoClickListener : VideoClickListener) :
 class VideoViewHolder(private val viewBinding: ItemVideoBinding) :
     RecyclerView.ViewHolder(viewBinding.root) {
 
+    @SuppressLint("SetTextI18n")
     fun bind(video: Video?, clickListener: (Video) -> Unit) {
 
         val time = (video?.duration ?: 0) / 1000
@@ -38,7 +40,7 @@ class VideoViewHolder(private val viewBinding: ItemVideoBinding) :
         val timeSeconds = time - (timeMinute * 60)
         val timeStr = "$timeMinute:${if (timeSeconds < 10) "0$timeSeconds" else "$timeSeconds"}"
 
-        var size = (video?.size ?: 0) / (1024 * 1024)
+        val size = (video?.size ?: 0) / (1024 * 1024)
 
         with(viewBinding) {
             textName.text = video?.name

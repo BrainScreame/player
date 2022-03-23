@@ -5,20 +5,18 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.VideoView
 import androidx.fragment.app.viewModels
 import com.google.android.exoplayer2.DefaultRenderersFactory
+import com.google.android.exoplayer2.ExoPlayer
 import com.google.android.exoplayer2.MediaItem
-import com.google.android.exoplayer2.SimpleExoPlayer
-import com.google.android.exoplayer2.audio.AudioAttributes
-import com.google.android.exoplayer2.source.ProgressiveMediaSource
 import com.google.android.exoplayer2.trackselection.DefaultTrackSelector
-import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory
 import com.google.android.exoplayer2.util.MimeTypes
 import com.google.android.exoplayer2.util.Util
-import com.osenov.english.R
-import com.osenov.english.Video
+import com.osenov.english.data.entities.Video
 import com.osenov.english.databinding.FragmentPlayerBinding
+import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsControllerCompat
+import androidx.core.view.WindowInsetsCompat
 
 class PlayerFragment : Fragment() {
 
@@ -26,11 +24,9 @@ class PlayerFragment : Fragment() {
         const val videoModel = "VIDEO"
     }
 
-    private val viewModel: PlayerViewBinding by viewModels()
-
     private lateinit var viewBinding: FragmentPlayerBinding
 
-    private var player: SimpleExoPlayer? = null
+    private var player: ExoPlayer? = null
     private var video: Video? = null
 
     private var currentPlayWhenReady = true
@@ -40,7 +36,7 @@ class PlayerFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        //activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_USER_LANDSCAPE
+//        activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_USER_LANDSCAPE
     }
 
 
@@ -50,14 +46,14 @@ class PlayerFragment : Fragment() {
     ): View {
         viewBinding = FragmentPlayerBinding.inflate(inflater, container, false)
 
-        /* activity?.let {
-             WindowCompat.setDecorFitsSystemWindows(it.window, false)
-             WindowInsetsControllerCompat(it.window, viewBinding.root).let { controller ->
-                 controller.hide(WindowInsetsCompat.Type.systemBars())
-                 controller.systemBarsBehavior =
-                     WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
-             }
-         }*/
+//        activity?.let {
+//             WindowCompat.setDecorFitsSystemWindows(it.window, false)
+//             WindowInsetsControllerCompat(it.window, viewBinding.root).let { controller ->
+//                 controller.hide(WindowInsetsCompat.Type.systemBars())
+//                 controller.systemBarsBehavior =
+//                     WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+//             }
+//         }
         return viewBinding.root
     }
 
@@ -103,14 +99,14 @@ class PlayerFragment : Fragment() {
 
         player?.clearVideoSurface()
 
-        /*activity?.let {
-            WindowCompat.setDecorFitsSystemWindows(it.window, true)
-            WindowInsetsControllerCompat(
-                it.window,
-                viewBinding.root
-            ).show(WindowInsetsCompat.Type.systemBars())
-        }*/
-        //activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_USER
+//        activity?.let {
+//            WindowCompat.setDecorFitsSystemWindows(it.window, true)
+//            WindowInsetsControllerCompat(
+//                it.window,
+//                viewBinding.root
+//            ).show(WindowInsetsCompat.Type.systemBars())
+//        }
+//        activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_USER
     }
 
     private fun initializePlayer() {
@@ -119,11 +115,10 @@ class PlayerFragment : Fragment() {
         }
 
 
-        player = SimpleExoPlayer.Builder(
+        player = ExoPlayer.Builder(
             requireContext(),
             DefaultRenderersFactory(
-                requireContext(),
-                DefaultRenderersFactory.EXTENSION_RENDERER_MODE_ON
+                requireContext()
             )
         )
             .setTrackSelector(trackSelector)

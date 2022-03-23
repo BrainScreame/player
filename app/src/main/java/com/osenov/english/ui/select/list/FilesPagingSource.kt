@@ -2,7 +2,7 @@ package com.osenov.english.ui.select.list
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.osenov.english.Video
+import com.osenov.english.data.entities.Video
 import com.osenov.english.data.VideoRepository
 
 class FilesPagingSource(private val repository: VideoRepository) : PagingSource<Int, Video>() {

@@ -1,17 +1,20 @@
 package com.osenov.english.data
 
+import android.app.Application
 import android.content.ContentResolver
 import android.content.Context
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
+import com.osenov.english.ApplicationVideo
 import com.osenov.english.ui.VIDEO_FILE
-import com.osenov.english.Video
+import com.osenov.english.data.entities.Video
+import javax.inject.Inject
+import javax.inject.Singleton
 
-//@Singleton
-class VideoRepository /*@Inject constructor*/(private val context: Context) {
 
+class VideoRepository @Inject constructor(private val application: ApplicationVideo) {
 
     fun getVideos(limit: Int, offset: Int): ArrayList<Video> {
 
@@ -28,14 +31,14 @@ class VideoRepository /*@Inject constructor*/(private val context: Context) {
                 )
 
             }
-            context.contentResolver.query(
+            application.contentResolver.query(
                 uriExternal,
                 VIDEO_FILE,
                 bundle,
                 null,
             )
         } else {
-            context.contentResolver.query(
+            application.contentResolver.query(
                 uriExternal,
                 VIDEO_FILE,
                 null,

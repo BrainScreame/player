@@ -1,4 +1,4 @@
-package com.osenov.english
+package com.osenov.english.data.entities
 
 import android.net.Uri
 import android.os.Parcelable
