@@ -17,6 +17,7 @@ import com.osenov.english.databinding.FragmentPlayerBinding
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import androidx.core.view.WindowInsetsCompat
+import com.google.android.exoplayer2.mediacodec.DefaultMediaCodecAdapterFactory
 
 class PlayerFragment : Fragment() {
 
@@ -114,12 +115,11 @@ class PlayerFragment : Fragment() {
             setParameters(buildUponParameters().setPreferredAudioLanguage("ru"))
         }
 
-
         player = ExoPlayer.Builder(
             requireContext(),
             DefaultRenderersFactory(
-                requireContext()
-            )
+               requireContext()
+            ).setExtensionRendererMode(DefaultRenderersFactory.EXTENSION_RENDERER_MODE_ON)
         )
             .setTrackSelector(trackSelector)
             .build()
